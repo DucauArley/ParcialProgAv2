@@ -32,9 +32,6 @@ export default function DetallePage({detalle, hab})
       backgroundColor: "red"
     }
 
-    console.log(detalle.imgUrl);
-
-
     return(
         <div>
         {

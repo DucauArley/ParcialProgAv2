@@ -11,10 +11,7 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { useDispatch } from 'react-redux';
-import TableHead from '@material-ui/core/TableHead';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import Avatar from '@material-ui/core/Avatar';
+import { useSelector } from 'react-redux';
 
 
 export default function PokeList({pokemons, cantidadPokes, handleCantidad, previous, next, handleClick, det}) 
@@ -46,8 +43,6 @@ export default function PokeList({pokemons, cantidadPokes, handleCantidad, previ
 
 
     const classes = useStyles();
-
-    console.log(detalles)
     
     const style =
     {
@@ -61,7 +56,7 @@ export default function PokeList({pokemons, cantidadPokes, handleCantidad, previ
         <div id='poke'>     
        <h1>Pokemones:</h1>
        {
-       (Array.isArray(detalles) && detalles.length > 0)
+       (Array.isArray(pokemons) && pokemons.length > 0)
        &&
        <Grid style={style}>
          <label style={ { marginRight: "10px" } }>Cantidad de pokemones: </label>
@@ -77,43 +72,16 @@ export default function PokeList({pokemons, cantidadPokes, handleCantidad, previ
             </Select>
        <TableContainer component={Paper}>
                    <Table className={classes.table} size="small" aria-label="simple table">
-                    <TableHead>
-                            <TableRow>
-                                <TableCell>Pokemon</TableCell>
-                                <TableCell>Peso</TableCell>
-                                <TableCell>Altura</TableCell>
-                                <TableCell>Foto</TableCell>
-                                <TableCell align="right">Detalle</TableCell>
-                                <TableCell align="right">Pelicula</TableCell>
-                            </TableRow>
-                            </TableHead>
                        <TableBody>
-                       {detalles.map((row) => (
+                       {pokemons.map((row) => (
                            <TableRow key={row.name}>
                            <TableCell component="th" scope="row">
                                {row.name}
                            </TableCell>
-                           <TableCell component="th" scope="row">
-                               {row.weight}
-                           </TableCell>
-                           <TableCell component="th" scope="row">
-                               {row.height}
-                           </TableCell>
-                           <TableCell component="th" scope="row">
-                           <GridList cellHeight={160}cols={2}>
-                              <GridListTile key={row.sprites.front_default}>
-                              <Avatar style={style}
-                                alt={row.name}
-                                src={row.sprites.front_default} 
-                                />
-                              </GridListTile>
-                            
-                          </GridList>
-                           </TableCell>
                            <TableCell align="right">
                                <Button
                               color="secondary"
-                              href={"/detalle/" + row.id}
+                              href={"/detalle/" + getId(row.url)}
                               size="medium"
                             >
                               Detalle!
@@ -122,7 +90,7 @@ export default function PokeList({pokemons, cantidadPokes, handleCantidad, previ
                             <TableCell align="right">
                                <Button
                               color="primary"
-                              href={"/pelicula/" + row.id}
+                              href={"/pelicula/" + getId(row.url)}
                               size="medium"
                             >
                               Pelicula!
@@ -169,4 +137,10 @@ export default function PokeList({pokemons, cantidadPokes, handleCantidad, previ
 
     )
 
+}
+
+function getId(url) {
+    const arr = url.split('/');
+    const id = arr[arr.length - 2];
+    return id;
 }

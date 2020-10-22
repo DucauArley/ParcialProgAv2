@@ -27,17 +27,16 @@ export default function Pokemons(props)
 
     if(detalles != undefined)
     {
+      console.log("Entra en los detalles undefined")
       let i = -1;
       detalles.map(response=>{
         
         response.then(result => {
           i++;
           det[i] = result;
-          /*hab.map(response=>
+          det.map(response=>
             {
-              console.log("Response");
-              console.log(response);
-            })*/
+            })
         }).catch( err => console.log(err));
         
       })
@@ -46,10 +45,12 @@ export default function Pokemons(props)
 
     const handleCantidad = (event) => {
         setCantidadPokes(event.target.value);
+        console.log("Entra cantidad");
       }
 
     const handleClick = (url) => {
         setUrl(url);
+        console.log("Entra cantidad");
       }
   
   return(

@@ -88,10 +88,13 @@ export function getPokemones(url, cantidad)
    return async (dispatch, state)=>{
       dispatch(loadingApp());
 
+      console.log("Cantidad");
+      console.log(cantidad);
+
       try
       {
          let pokes;
-         let detalles
+         let detalles;
 
          if(url.length <35)
          {
@@ -100,7 +103,10 @@ export function getPokemones(url, cantidad)
                {
                   return getPokes(poke.url);
                })
-                }
+
+               console.log("Entra def");
+
+         }     
          else
          {
             const { base, offset } = getUrlAsObj(url);
@@ -111,6 +117,8 @@ export function getPokemones(url, cantidad)
                {
                   return getPokes(poke.url);
                })
+
+               console.log("Entra en", newUrl);
          }
 
          dispatch(loadedApp(false,false, null));
